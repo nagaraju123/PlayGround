@@ -1,0 +1,205 @@
+
+  Majorly all docker related stuff like containers are worked on Linux environment.
+  Why do we use docker? Docker makes it really easy to install and run software without worrying about setup or dependencies.
+  Docker is a platform or ecosystem around creating and running containers.
+  Docker ecosystem consists of Docker Clinet,Docker Server,Docker Images,Docker Hub,Docker Compose and Docker Machine.
+  Docker Image is a single file will all the dependencies and configurations required to run a particular program.
+  Docker Container is an Instance of an image. Which it is used to run program.
+  
+  1.Basic Commands:-
+
+	To run Image on our system:- docker run <Image-Name>  <Any override operation>
+		Here image name means valid docker image which is available at docker hub. And Override operation means if that image is having any supported operations
+		we can pass directly at the time of running. If that image does not contain any executable programs then we will get error .
+		Every time when we are running images it will created containers if it is not available in our system.
+		
+	To See all Containers :-  
+		docker ps :- 		It will displays  only running containers in our system.
+		docker ps --all  (or) docker ps -a  :- It will displays all containers running in our system. 
+		
+	Container Lifecycle:-
+	Whenever we are running docker run command in command line it consists of two commands 
+		1. create a container	Ex: docker create image-name   it will create container for us. 
+			  When we are running docker create image-name it will just create image and it will gives us some unique code related to that image.
+			  
+		2. start  a container		Ex:- docker start image-name   it will start container for us.
+			  If we want to run the image which previously created we need to use the command called.
+				docker start -a <Id returned at the time of creating container>
+		      Here we used flag called "-a" what exactly it will does means it will wait for output which is return by the container. If we will not added this flag
+			  It will not print any output.
+			  
+	docker ps -all  -> It will gives all containers which we are previously created. If we want to run exisintg container we can start by using 
+		docker start <containerId>  -> It will not executed any programs which you have used previously. If we want to executed container with previous program
+			 we need to add "-a" flag. Then only it will execute. docker start -a <containerId>
+			 
+	If we want to delete all containers or images which we previously downloaded into our system we need to run below command
+		docker system prune  -> It will remove all images and containers which we downloaded from docker hub.
+	
+	If we want to get all logs which are coming after executing our container we need to use command called 
+		docker logs containerId	 --> It will prints all consoles which we are printed on given container.
+		
+	If we want to stop already running instances we have two commands available 
+		1. docker stop <containerId>  :- It will sends signal to stop that container. It will takes 10 seconds to stop container. Until that container information
+										 like logs and other stuff will saved into our local server. If container takes morethan 10 seconds to stop that container 
+										 it will directly calls docker kill command to stop container 	
+		2. docker kill <containerId>  :- It will immeadiately stops the container. It will not wait any time to store some information about that container. It will 
+										 kills container immeadiately. It will not checks its condition. It will stops container immeadiately conpared to docker stop command.
+										 
+	If we want to execure any commands after running of container we need to use command called 
+			docker exec -it containerId  <Command to process after container start> . Here one main point is without "-it" you cannot see any output 
+			related to that command. So what is "it" flag means
+		For every container which are alredy created in docker machine is having three falgs.
+			1. STDIN  --> This command will takes input from command prompt and gives to container
+			2. STDOUT --> This flags will be used to get response from containers and sends it to that command prompt. It will sends output
+			3. STDERR --> This flags will be used to get response from containers and sends it to that command prompt. It will sends error messages.
+		
+		Here "-i" is used to send data to STDIN from command prompt and "-t" is used to gives response back from STDOUT.
+	
+	If we want to enter into container shell to execute some commands on that location.	We need to use below command	
+		docker exec -it containerId sh  -> Here "sh" means we are passing command to open shall on given container, It will opens up linux command shell.
+			Where we can excute all basic linux commands. Why linux means all containers of docker will be stored on linux machine only.
+	And we can start executing command by using run command also by using image name.
+		docker run -it image-name sh   --> It will open shell command prompt for us 
+
+		
+  2. Create Docker Images 	
+	We can create multiple containers with single image.
+    For every container it has different File System. It means if you start same image in two command prompts. IF you make change in one command prompt
+	it will not effect on second container.	
+	 If we want  to create our custom image we need to follow the below steps 
+		1. Docker File  --> Configuration to define how our container should behave
+		2. Docker Client
+		3. Docker Server 
+		4. Usable Image  --> Here we can find our image is usable image. We can pull it from docker hub
+		
+	 Creating a Docker File :-
+		It will consists of following step to create docker file 
+			1. Specify a base image 
+			2. Run some commands to install additional Programs
+			3. Specify a command to run on container startup.
+			
+	   To run that docker file we need to use command like  "docker build ."  It will create one image with all configurations which we have done
+	    in that docker file.
+	   And also we can build image with our custom names also it requires following pattern
+		"docker build -t dockerhubId/ProjectName:Version  ."    Here . is main key it tells docker to which files we need to put in that docker image.
+															    And "-t" indicates we are tagging our own name to image					
+		Ex:- docker build -t nagaraju0503/redis:latest .
+		
+		Port mapping :- docker run -p localMachinePort : PortWe assigned at Docker container    <Image NAme>
+				Ex:- docker run -p 8060:8080 nodeApp --> Here we are mentioning that the requests which we are performing at port 8060 from our system docker navigates
+					to 8080 port of container and gives response back to 8060 port.
+					
+		When our we are building our project using docker, it requires all our files to be moved into docker server . For that we need to use some other command
+        called  "COPY sourcePath  DestinationPath". This statement will copy all our required files into docker server.
+		By default if we want to mention where our files need to copy into docker server we have some special property called
+		"WORKDIR <path>". It will setup folder where our project related files should be moved. This we need to mentions before we performing any opearations 
+         on our project.
+  
+  3. Docker Compose
+	 If we want to make a connection between two containers we have two options in Docker 
+		1. docker cli with some networking features   --> It is rarely used
+		2. Docker Compose							  --> It is mostly used 
+			It is a CLI that gets installed along with Docker
+			It is used to start up multiple containers at the same time
+			It will automates some of the long winded arguments we are passing to "docker run"
+	 Mainly docker compose is used to start multiple containers at the same time. We need to write all configurations inside one file. File name is like 
+		"docker-compose.yml". Inside this we will configure the steps one by one.
+	 Commands:-
+		docker-compose up :- This command is used to run already exisintg services which we have mentioned in yml file it will not build again.
+		docker-compose up --build :- This command will start build by finding services from working directory yml file and starts that services.
+
+	 If we want to run run containers in background we are going to use below command in docker-compose	
+		docker-compose up -d
+	 If we want to stop all running containers in backgroup we are going to use below command in docker-compose	
+		docker-compose down
+	 Restart Policies in Docker Compose:-
+		1. "no"  :- Never attempts to restart this. If container stops or crashes 
+		2. always  :- If this container stops for any reason always attempt to restart it.
+		3. on-failure :- Only restart if the container stops with an error code 
+		4. unless-stopped :- Always restart unless (We developers forcibly stops it).
+	 If we want to know the status of current running processes of docker-compose we can check it by running below command 
+		docker-compose ps . But one thing here we need to run this command where we have that docker-compose.yml file. From that file it will gives 
+		what are running processes. If it does not find .yml file in that directory it will returns error.
+		
+		
+		
+		
+	Project:-
+		If we want to build docker with some custom file name we need to use below command
+			docker build -f <FileName> .
+		
+  Docker Volumes:-
+	Docker Volumes refers to we want to map our local server data folders into docker container folders.
+	Docker volumes main concept is whenever we made changes to local code it should automatically reflected on container 
+	
+  Git:-
+	from Exisitng folder where you are you need to run below commands to commit our files to git 
+		1. git init  --> It will give .git files for our folder 
+		2. git add .   --> It will add all our files to git 
+		3. git remote add origin <Project Git Url>  --> HEre we are mentioning our repository to that project which we have created.
+		4. git push origin master  	--> Finally it will move all files into Git 
+  
+  Single Container Deployment Issues:-		
+		1. The app was simple - no outside dependencies
+		2. Our image was built multiple times
+		3. How do we connect to database from a container?
+			
+  To push our local images into Docker hub:-
+	1. We need to login into Docker Cli --> docker login username password 
+	2. Push images into docker hub      --> docker push username/image-name
+	 
+		
+ 			 
+  Git Commits Steps:-		
+	echo "# PlayGround" >> README.md
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://github.com/nagaraju123/PlayGround.git
+	git push -u origin master
+                	
+			
+			
+				
+
+				
+										 
+										 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
