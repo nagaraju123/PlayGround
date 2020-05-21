@@ -1,0 +1,90 @@
+Mongoose:-
+
+	
+	Mocha:- It is one type of testing framework which is supported by Nodejs.
+			It is having two methods called "describe" and "it".
+			Both functions will take two parameters first one is string and second one is function which we need to run in that test.
+			
+				Syntax:- describe("string",()=>{
+							it("string",()=>{
+							
+							});	
+						 });
+			If we want to execute any functions we need to write it in "it" function
+			To execute these functions we need package called "assert". It is provided by mocha package.
+				Ex:- describe("string",()=>{
+							it("string",()=>{
+								assert(1+1==2);
+							});	
+						 });
+			If we want to run these steps we need to add the script inside package.json file. We need to set command as "mocha".
+				Ex:-  scripts:{  "test":"mocha" }  This will run when we are calling npm run test.
+				
+			If we dont want to run some tests which we created we need to replace "it" with "xit". Then it will skips that particular test. It will 
+			skips only this one. And remaining tests will run as it is.
+
+			If we have more number of tests in our project if we want to run only specific one we need to replace "it" with "it.only". Then it will 
+			take only that particular test to run. Remaining it will ignores	
+				
+	Update Mehotds in Mongoose:-
+		2 ways 
+			1. Model Instance 
+				1. update 
+				2. set and save 
+			2. Model Class 
+				1. update
+				2. findOneAndUpdate
+				3. findByIdAndUpdate
+				
+	Deleting Records in Mongoose:-			
+		2 ways 
+			1. Model Instance 
+				1. remove 
+				
+			2. Model Class 
+				1. remove
+				2. findOneAndRemove
+				3. findByIdAndRemove		
+				
+	Virtual Types:-	It is named as properties which we dont need to store it in our database. 
+					And need to get some values for that. For example if we have some arrays in collection. We need to get properties length.
+					And these Vitual Types will works on ES6 getter and setter methods.
+
+
+	Associations:- These are also name it as relations. 
+	 For example one collection is having relation with child collection. While fetching if we want to fetch details of that subcollection
+	 We need to use function called ".populate('<Peroperty name which we declared at time of schema declation>')"
+	 
+	
+	Middleware:- Mongoose will come up with some of middlewares which we can use before and after of every CRUD operation performed.
+		These operations will performed on ModelSchema.
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+				

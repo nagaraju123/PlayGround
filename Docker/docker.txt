@@ -162,12 +162,40 @@
 			
 				
 
+	Kubernities:-
+		What :- System for running many different containers over multiple different machines.
+		Why  :- When you need to scale our containers based on workload. When you need to run many different containers with different images.
+	    If we want to start work with kubernities we need to use following
+			for Development  we need to use "minikube". It is command line tool.
+			
+			for Production we need to use "Amazon Elastic Container Service for Kubernities(EKS)","Google Clound Kubernities Engine(GKE)"
+		Minikube:- 
+			It will create kubernities virtual machine on our local computer. Used for managing the VM itself.
+			Kubectl is program which is used to perform operations on VM which is created by Minikube.
+		Local Kuibernities development or installation:-
+			1. Install kubectl   --> CLI for interacting with our master
+			2. Install a VM driver virtual box  --> Used to make VM that will be your single node.
+			3. Install minikube	   --> Runs a single node on that VM.
+			
+	    Mapping between Docker compose and Kubernities configurations:-
+			1.
+				Docker:- Each entry can optionally get docker-compose to build an image
+				Kubernities:- Kubernities Expects all images to already be built.
+			2.
+				Docker:- Each entry represents a container we want to create.
+				Kubernities:- Oner config file per object we want to create
+			3.
+				Docker:- Each entry defines the networking requirements
+				Kubernities:- We have to manually set up all networking
+		Installations:-
+			download:- kubectl.exe and 
+					   minikube.amd.64.exe and need to rename it to minikube.exe 
+										 
+				From command prompt we need to run "minikube start"	it will download all essentials for us.
 				
-										 
-										 
 		
 		
-		
+		minikube start --vm-driver=hyperv --hyperv-virtual-switch=Minikube
 		
 		
 		

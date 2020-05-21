@@ -1,0 +1,43 @@
+Jenkins:- 
+	It is an open source to deploy our code into servers.
+	It requires JAVA in our system where we are installing jenkins.
+	
+  Basic:-
+	Jenkins is an open source automation server written in JAVA.
+	It is used to detects changes in Subverision or GIT .., perform tasks, repeatedly. Like(Build,Test,Deploy,Package,Integrate).
+	A Fork of origional Hudson Project.
+	It has a plug in extensibility.
+	It is under developement since 2005.
+	Official web site   http://jenkins.io
+ 
+ Contineous Integratation (CI):-
+	CI server contineously integrates newly checked in code into a build.
+	It will runs a tests and rejects the build if they failes.
+    And also it will deploys build to other servers.
+    And this process is also called it as a "build automation".
+    Some of the benefits from Jenkins are 
+		. Immeadiate Bug detection
+		. No integration step in the life cycle.
+		. a Deployable system at any given point
+		. Record of evaluation of the project.
+		. Detect system developement problems earlier.
+		. Reduces risk of cost , schedule and budget.
+		. Measurable and visible code quality.
+  
+  Why do we need Jenkins:-
+	Jenkins plugins extensibility makes jenkins to adapt to many system
+	Jenkins provides everything for a robust contineous integration system which helps a lot for team that practice Agile methodoly.
+	Jenkins contineously providing access to the working copies of software which supports the Agile methodoly principle.
+	It is released under MIT License.
+	There is large support community and through documentation.
+	It is very easy to write plugins.
+
+  Installation of Jenkins:-
+	Go to jenkins.io and click on download and select LTS support version.
+	And select based on our OS.
+	
+	
+  	
+
+
+		
